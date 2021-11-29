@@ -6,30 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- 居中：先講講提示文字
 
+    設定好 gravity = center 之後
+
+    若還是沒有效果
+
+    請再加上 ellipsize = start 就可以了-->
     <EditText
         android:id="@+id/editText"
         android:layout_width="0dp"
         android:layout_height="35dp"
-        android:lines="1"
-        android:singleLine="true"
-        android:inputType="textUri"
+        android:background="@drawable/url_bac"
         android:imeOptions="actionSend"
-        android:textSize="12sp"
-        tools:text="asdasdasdas"
-        android:textColor="#333333"
-        android:paddingStart="10dp"
+        android:inputType="textUri"
+        android:lines="1"
+        android:paddingStart="30dp"
         android:paddingEnd="10dp"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textColor="#333333"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/url_bac"/>
+        tools:text="搜索世界" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="2dp"
+        android:indeterminateTint="#fff"
         android:progress="50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

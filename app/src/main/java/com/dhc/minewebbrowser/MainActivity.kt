@@ -20,16 +20,26 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.net.Uri
+import android.view.Window
+import android.view.WindowManager
+import androidx.annotation.RequiresApi
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var webView:WebView
-    private lateinit var editText:EditText
-    private lateinit var progressBar:ProgressBar
+    private lateinit var webView: WebView
+    private lateinit var editText: EditText
+    private lateinit var progressBar: ProgressBar
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 隐藏状态栏并全屏
+        val lp: WindowManager.LayoutParams = this.getWindow().getAttributes()
+        lp.layoutInDisplayCutoutMode =
+            WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        this.getWindow().setAttributes(lp)
+
         setContentView(R.layout.activity_main)
         initView()
         initListener()
@@ -46,8 +56,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if(event?.keyCode == KeyEvent.KEYCODE_BACK){
-            if(webView.canGoBack()) {
+        if (event?.keyCode == KeyEvent.KEYCODE_BACK) {
+            if (webView.canGoBack()) {
                 webView.goBack()
                 return true;
             }
@@ -74,13 +84,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun initListener() {
         editText.setOnEditorActionListener { p0, p1, p2 ->
-            if(p2?.keyCode == KeyEvent.KEYCODE_ENTER){
+            if (p2?.keyCode == KeyEvent.KEYCODE_ENTER) {
                 var url = editText.text.toString()
-                if(!url.startsWith("http")&&!url.startsWith("https")){
-                    url="http://$url"
+                if (!url.startsWith("http") && !url.startsWith("https")) {
+                    url = "http://$url"
                 }
                 webView.loadUrl(url)
-                ImTool.closeKeyBoard(baseContext,editText)
+                ImTool.closeKeyBoard(baseContext, editText)
             }
             false
         }
@@ -88,15 +98,15 @@ class MainActivity : AppCompatActivity() {
 
             override fun onProgressChanged(view: WebView, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)
-                if(newProgress >= 99){
+                if (newProgress >= 99) {
                     progressBar.visibility = View.GONE
-                }else if(progressBar.visibility == View.GONE){
+                } else if (progressBar.visibility == View.GONE) {
                     progressBar.visibility = View.VISIBLE
                 }
                 progressBar.progress = newProgress
             }
         }
-        webView.webViewClient = object:WebViewClient(){
+        webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 editText.setText(url)
@@ -108,5 +118,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(i)
         }
     }
+
 
 }
