@@ -1,28 +1,23 @@
 package com.dhc.minewebbrowser
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.EditText
-import androidx.core.view.ViewCompat.setLayerType
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.KeyEvent
 import android.view.View
-import android.widget.ProgressBar
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.os.PersistableBundle
-import android.webkit.*
-import android.widget.TextView
-import android.content.Intent
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.net.Uri
-import android.view.Window
 import android.view.WindowManager
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         this.getWindow().setAttributes(lp)
 
         setContentView(R.layout.activity_main)
+
         initView()
         initListener()
         loadDefaultUrl()
@@ -119,5 +115,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun myclick(source: View?) {
+        Toast.makeText(applicationContext, "按钮被点击了", Toast.LENGTH_SHORT).show()
+        loadDefaultUrl()
+    }
 
 }
